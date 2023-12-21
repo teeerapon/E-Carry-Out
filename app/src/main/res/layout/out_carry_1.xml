@@ -1,237 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    tools:context=".OutCarry_1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:text="เลือก Carry Out No."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <AutoCompleteTextView
+            android:id="@+id/auto_complete_carry_out_no"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".OutCarry_1">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="0dp"
+            android:inputType="none"
+            android:text="เลือก Carry Out No."
+            tools:ignore="LabelFor"
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="241dp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="309dp"
-                android:layout_height="68dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="100dp"
-                android:hint="@string/carry_out_no"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints">
-
-                <AutoCompleteTextView
-                    android:id="@+id/auto_complete_carry_out_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="0dp"
-                    android:baselineAligned="false"
-                    android:inputType="none"
-                    android:text="@string/carry_out_no"
-                    tools:ignore="LabelFor"
-                    tools:layout_editor_absoluteX="37dp"
-                    tools:layout_editor_absoluteY="241dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:text="@string/carry_out_no"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.842" />
-
-            <TextView
-                android:id="@+id/FrstData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="28dp"
-                android:maxLines="4"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_sutterdoor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="12dp"
-                android:maxLines="4"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/FrstData"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:singleLine="false"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_sutterdoor"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_requester"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_no"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_company"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_requester"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/secondData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="16dp"
-                android:maxLines="4"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_company"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_carryout_person"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="12dp"
-                android:maxLines="4"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/secondData"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_carryout_company"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_carryout_person"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_carryout_car"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_carryout_company"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_propose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_carryout_car"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_return"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_propose"
-                app:layout_constraintVertical_bias="0.0"
-                tools:ignore="MissingConstraints" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewAssets"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="28dp"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                android:scrollbars="none"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_return"
-                app:layout_constraintVertical_bias="0.0" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewAssetsImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.465"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerViewAssets"
-                app:layout_constraintVertical_bias="0.236" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/next_step_carry_out1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_blue_dark"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="เชื่อมต่อระบบ"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.945"
+        tools:ignore="MissingConstraints" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/next_step_carry_out1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/purple_700"
-                android:foreground="?attr/selectableItemBackground"
-                android:text="Next Step"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerViewAssetsImage"
-                app:layout_constraintVertical_bias="0.047" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

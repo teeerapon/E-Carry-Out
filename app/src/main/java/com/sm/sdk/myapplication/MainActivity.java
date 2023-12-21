@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     RequestQueue queue;
     String url;
 
+    String gateWay;
+
+    Button buttonGetway;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,19 @@ public class MainActivity extends AppCompatActivity {
 
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
         adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, item);
+
+        buttonGetway = findViewById(R.id.buttonGetway);
+        buttonGetway.setVisibility(View.GONE);
+
+        buttonGetway.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, OutCarry_1.class);
+                intent.putExtra("GateWay", gateWay);
+                startActivity(intent);
+            }
+        });
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new com.android.volley.Response.Listener<String>() {
             @Override
@@ -80,11 +98,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
                 Log.e(TAG, "onFailure: " + item);
+                buttonGetway.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, "Item: " + item, Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(MainActivity.this, OutCarry_1.class);
-                intent.putExtra("GateWay", item.split(",")[1]);
-                startActivity(intent);
+                gateWay = item;
             }
         });
     }
