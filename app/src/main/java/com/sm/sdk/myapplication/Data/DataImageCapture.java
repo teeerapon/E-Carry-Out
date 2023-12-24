@@ -1,4 +1,4 @@
-package com.sm.sdk.myapplication;
+package com.sm.sdk.myapplication.Data;
 
 import android.graphics.Bitmap;
 

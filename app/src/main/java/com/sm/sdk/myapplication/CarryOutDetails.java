@@ -1,16 +1,19 @@
 package com.sm.sdk.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import static com.android.volley.VolleyLog.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,6 +21,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.sm.sdk.myapplication.Data.DataAssetImages;
+import com.sm.sdk.myapplication.Data.DataAssets;
+import com.sm.sdk.myapplication.Metthod.Method;
+import com.sm.sdk.myapplication.Recycler.RecyclerAssetImage;
+import com.sm.sdk.myapplication.Recycler.RecyclerAssets;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +38,7 @@ public class CarryOutDetails extends AppCompatActivity {
 
     RequestQueue queue;
     String url;
-    private final List<DataAssetsImage> imageList = new ArrayList<>();
+    private final List<DataAssetImages> imageList = new ArrayList<>();
     ;
     final ArrayList<DataAssets> jsonResponses = new ArrayList<>();
 
@@ -47,10 +55,14 @@ public class CarryOutDetails extends AppCompatActivity {
     TextView result_propose;
     TextView result_return;
 
-    RecyclerView recyclerView;
-    RecyclerView recyclerViewImage;
+    private RecyclerView assetDetail;
+    private RecyclerView imageAsset;
 
     Button button;
+
+    RadioGroup radioGroup;
+
+    RadioButton radioButton;
 
 
     @Override
@@ -60,6 +72,11 @@ public class CarryOutDetails extends AppCompatActivity {
 
         String gateWay = getIntent().getStringExtra("GateWay");
         String carryOutNo = getIntent().getStringExtra("carryout_no");
+
+        queue = Volley.newRequestQueue(this);
+        url = Method.Base_url + "/demo/e-carryout/api/getdata/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9&id=" + carryOutNo;
+
+        button = (Button) findViewById(R.id.carry_out_assets_photo);
 
         frstData = findViewById(R.id.FrstData);
         result_sutterdoor = findViewById(R.id.result_sutterdoor);
@@ -74,21 +91,14 @@ public class CarryOutDetails extends AppCompatActivity {
         result_propose = findViewById(R.id.result_propose);
         result_return = findViewById(R.id.result_return);
 
-        recyclerView.findViewById(R.id.recyclerViewAssets);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(CarryOutDetails.this));
+        assetDetail = findViewById(R.id.recyclerViewAssets);
+        assetDetail.setLayoutManager(new LinearLayoutManager(CarryOutDetails.this));
 
-        recyclerViewImage.findViewById(R.id.recyclerViewAssetsImage);
-        recyclerViewImage.setHasFixedSize(true);
-        recyclerViewImage.setLayoutManager(new LinearLayoutManager(CarryOutDetails.this));
+        imageAsset = findViewById(R.id.recyclerViewAssetsImage);
+        imageAsset.setHasFixedSize(true);
+        imageAsset.setLayoutManager(new LinearLayoutManager(CarryOutDetails.this));
 
-
-        queue = Volley.newRequestQueue(this);
-        url = Method.Base_url + "/demo/e-carryout/api/getdata/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9&id=" + carryOutNo;
-
-        button = (Button) findViewById(R.id.carry_out_assets_photo);
-
-
+        radioGroup = findViewById(R.id.radioGroup);
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -119,22 +129,23 @@ public class CarryOutDetails extends AppCompatActivity {
                         String AssetsData = "ข้อมูลทรัพย์สินที่: " + (i + 1);
                         jsonResponses.add(new DataAssets(Description, Qty, serial_no, fixed_no, remark, AssetsData));
                     }
-                    RecyclerAssets recyclerAssets = new RecyclerAssets(jsonResponses);
-                    recyclerView.setAdapter(recyclerAssets);
 
                     JSONArray arrayImage = object.getJSONArray("result_images");
                     for (int i = 0; i < arrayImage.length(); i++) {
                         String image = arrayImage.getString(i);
-                        DataAssetsImage dataAssetsImage = new DataAssetsImage(image);
+                        DataAssetImages dataAssetsImage = new DataAssetImages(image);
                         imageList.add(dataAssetsImage);
                     }
-
-                    RecyclerAssetsImage imageAdapter = new RecyclerAssetsImage(CarryOutDetails.this, imageList);
-                    recyclerViewImage.setAdapter(imageAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                RecyclerAssets recyclerAssets = new RecyclerAssets(jsonResponses);
+                assetDetail.setAdapter(recyclerAssets);
+
+                RecyclerAssetImage imageAdapter = new RecyclerAssetImage(CarryOutDetails.this, imageList);
+                imageAsset.setAdapter(imageAdapter);
+//                    Log.e(TAG,imageList.toString());
             }
         }, new Response.ErrorListener() {
             @Override
@@ -143,5 +154,29 @@ public class CarryOutDetails extends AppCompatActivity {
             }
         });
         queue.add(request);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int radioID = radioGroup.getCheckedRadioButtonId();
+                radioButton = findViewById(radioID);
+
+                String gateWay = getIntent().getStringExtra("GateWay");
+                String carryOutNo = getIntent().getStringExtra("carryout_no");
+                RadioButton radioButton1 = findViewById(R.id.radio_CarryOut);
+                String statusReturn = "0";
+                if(radioButton.getText() == radioButton1.getText()){
+                    statusReturn = "1";
+                }
+
+                Log.e(TAG,statusReturn);
+
+                Intent intent = new Intent(CarryOutDetails.this, CaptureAssets.class);
+                intent.putExtra("carryout_no", gateWay);
+                intent.putExtra("GateWay", carryOutNo);
+                intent.putExtra("statusReturn", statusReturn);
+                startActivity(intent);
+            }
+        });
     }
 }

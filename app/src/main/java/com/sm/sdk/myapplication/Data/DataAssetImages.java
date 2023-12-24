@@ -1,9 +1,9 @@
-package com.sm.sdk.myapplication;
+package com.sm.sdk.myapplication.Data;
 
-public class DataAssetsImage {
+public class DataAssetImages {
     private String image;
 
-    public DataAssetsImage(String image) {
+    public DataAssetImages(String image) {
         this.image = image;
     }
 

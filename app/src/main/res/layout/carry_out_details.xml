@@ -15,14 +15,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".CarryOutDetails">
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:id="@+id/FrstData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="28dp"
                 android:maxLines="4"
                 android:text="ข้อมูลผู้ร้องขอ: "
                 android:textSize="20sp"
@@ -157,20 +156,63 @@
                 app:layout_constraintVertical_bias="0.0"
                 tools:ignore="MissingConstraints" />
 
+            <TextView
+                android:id="@+id/remarkCarry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                android:maxLines="4"
+                android:text="จุดประสงค์"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/result_return"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="329dp" />
+
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="374dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="30dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/remarkCarry"
+                tools:ignore="MissingConstraints">
+
+                <RadioButton
+                    android:id="@+id/radio_CarryIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ไม่นำกลับ"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteY="300dp" />
+
+                <RadioButton
+                    android:id="@+id/radio_CarryOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="นำกลับ"
+                    app:layout_constraintStart_toEndOf="@+id/radioButton"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteY="300dp" />
+
+            </RadioGroup>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewAssets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="40dp"
                 android:orientation="vertical"
                 android:overScrollMode="never"
                 android:scrollbars="none"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_return"
-                app:layout_constraintVertical_bias="0.0" />
-
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewAssetsImage"

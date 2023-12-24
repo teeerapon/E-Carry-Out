@@ -1,4 +1,4 @@
-package com.sm.sdk.myapplication;
+package com.sm.sdk.myapplication.Recycler;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +8,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sm.sdk.myapplication.Data.DataAssets;
+import com.sm.sdk.myapplication.R;
+
 import java.util.ArrayList;
 
 public class RecyclerAssets extends RecyclerView.Adapter<RecyclerAssets.VieweHolder> {
-
     private ArrayList<DataAssets> arrayList;
 
     public RecyclerAssets(ArrayList<DataAssets> arrayList){

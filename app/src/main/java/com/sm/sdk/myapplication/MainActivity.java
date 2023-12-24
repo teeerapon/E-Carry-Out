@@ -10,13 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.sm.sdk.myapplication.Metthod.Method;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +25,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     String[] item = {"MARK", "PANG", "MIKE"};
     final ArrayList<String> listName = new ArrayList<String>();
     private static final String TAG = "ActivityMain";
@@ -53,14 +52,14 @@ public class MainActivity extends AppCompatActivity {
         adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, item);
 
         buttonGetway = findViewById(R.id.buttonGetway);
-        buttonGetway.setVisibility(View.GONE);
+        buttonGetway.setEnabled(false);
 
         buttonGetway.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, OutCarry_1.class);
-                intent.putExtra("GateWay", gateWay);
+                Intent intent = new Intent(MainActivity.this, CarryOutNo.class);
+                intent.putExtra("GateWay", gateWay.split(",")[1]);
                 startActivity(intent);
             }
         });
@@ -98,8 +97,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
                 Log.e(TAG, "onFailure: " + item);
-                buttonGetway.setVisibility(View.VISIBLE);
-                Toast.makeText(MainActivity.this, "Item: " + item, Toast.LENGTH_SHORT).show();
+                buttonGetway.setEnabled(true);
                 gateWay = item;
             }
         });

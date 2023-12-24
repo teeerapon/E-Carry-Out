@@ -1,4 +1,4 @@
-package com.sm.sdk.myapplication;
+package com.sm.sdk.myapplication.Recycler;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,15 +11,17 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.sm.sdk.myapplication.Data.DataImageCapture;
+import com.sm.sdk.myapplication.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class RecyclerAssetsImage extends RecyclerView.Adapter<RecyclerAssetsImage.VieweHolder> {
+public class RecyclerCaptureImage extends RecyclerView.Adapter<RecyclerCaptureImage.VieweHolder> {
     Context context;
-    List<DataAssetsImage> imageList;
+    ArrayList<DataImageCapture> imageList;
 
-    public RecyclerAssetsImage(Context context, List<DataAssetsImage> postList) {
+
+    public RecyclerCaptureImage(Context context, ArrayList<DataImageCapture> postList) {
         this.context = context;
         imageList = postList;
 
@@ -28,14 +30,14 @@ public class RecyclerAssetsImage extends RecyclerView.Adapter<RecyclerAssetsImag
     @NonNull
     @Override
     public VieweHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_image, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.capture_image, parent, false);
         return new VieweHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VieweHolder holder, int position) {
-        DataAssetsImage dataAssetsImage = imageList.get(position);
-        Glide.with(context).load(dataAssetsImage.getImage()).into(holder.imageView);
+    public void onBindViewHolder(@NonNull RecyclerCaptureImage.VieweHolder holder, int position) {
+        DataImageCapture dataAssetsImage = imageList.get(position);
+        Glide.with(context).load(dataAssetsImage.getImage()).into(holder.imageView1);
     }
 
     @Override
@@ -45,14 +47,13 @@ public class RecyclerAssetsImage extends RecyclerView.Adapter<RecyclerAssetsImag
 
     public class VieweHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
-        View view;
+        ImageView imageView1;
         ConstraintLayout constraintLayout;
 
         public VieweHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageview);
-            constraintLayout = itemView.findViewById(R.id.main_layout);
+            imageView1 = itemView.findViewById(R.id.captureImage);
+            constraintLayout = itemView.findViewById(R.id.main_layout_capture);
         }
     }
 }
