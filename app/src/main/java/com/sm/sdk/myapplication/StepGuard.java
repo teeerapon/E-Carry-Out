@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +24,6 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
-import com.sm.sdk.myapplication.Metthod.Method;
 import com.sm.sdk.myapplication.databinding.ActivityStepGuardBinding;
 import com.sm.sdk.myapplication.utils.LogUtil;
 import org.json.JSONException;
@@ -39,7 +39,8 @@ public class StepGuard extends AppCompatActivity {
 
     private MaterialButton done;
     RequestQueue queue;
-    private String url= Method.Base_url +"/demo/e-carryout/api/receive/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9";
+    SharedPreferences preferences = getSharedPreferences("SHARED_PRES", MODE_PRIVATE);
+    private String url= preferences.getString("base_url", "https://www.tkig.co.th") +"/demo/e-carryout/api/receive/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9";
 
     private ActivityStepGuardBinding binding;
 
@@ -92,9 +93,13 @@ public class StepGuard extends AppCompatActivity {
             public void onClick(View v) {
                 String carryout_no = getIntent().getStringExtra("carryout_no");
                 String geteWay = getIntent().getStringExtra("GateWay");
-//                String statusReturn = getIntent().getStringExtra("statusReturn");
                 ArrayList<String> imgData = getIntent().getStringArrayListExtra("imgData");
-                String cardData = getIntent().getStringExtra("cardData");
+                String cardData;
+                if(Objects.equals(getIntent().getStringExtra("caseCardData"), "0")){
+                    cardData = getIntent().getStringExtra("cardData");
+                }else{
+                    cardData = String.valueOf(getIntent().getStringArrayListExtra("cardData"));
+                }
                 String api_getWay = getIntent().getStringExtra("api_getWay");
                 LogUtil.e(Constant.TAG,api_getWay);
                 url = url
@@ -121,7 +126,7 @@ public class StepGuard extends AppCompatActivity {
                                     Toast.makeText(StepGuard.this, resultGet, Toast.LENGTH_SHORT).show();
                                 }else{
                                     Toast.makeText(StepGuard.this, "Successfully", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(StepGuard.this, MainActivity.class);
+                                    Intent intent = new Intent(StepGuard.this, CarryOutChoseWay.class);
                                     startActivity(intent);
                                 }
                             } catch (JSONException e) {

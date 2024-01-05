@@ -3,11 +3,13 @@ package com.sm.sdk.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,7 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.sm.sdk.myapplication.Metthod.Method;
+import com.sm.sdk.myapplication.utils.LogUtil;
 import com.sm.sdk.myapplication.utils.PreferencesUtil;
 
 import org.json.JSONArray;
@@ -45,17 +47,20 @@ public class MainActivity extends AppCompatActivity {
 
     Button buttonGetway;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkLogin();
+
+        SharedPreferences preferences = getSharedPreferences("SHARED_PRES", MODE_PRIVATE);
+
+        gateWay = preferences.getString("CarryOutGateWay", null);
 
         queue = Volley.newRequestQueue(this);
-        url = Method.Base_url + "/demo/e-carryout/api/gate/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9";
+        url = preferences.getString("base_url", "https://www.tkig.co.th") + "/demo/e-carryout/api/gate/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9";
 
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
-        adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, listName);
 
         buttonGetway = findViewById(R.id.buttonGetway);
 
@@ -63,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if(gateWay == null){
-                    Toast.makeText(MainActivity.this,"กรุณาเลือกประตู",Toast.LENGTH_SHORT).show();
-                }else{
+                if (gateWay == null) {
+                    Toast.makeText(MainActivity.this, "กรุณาเลือกประตู", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent intent = new Intent(MainActivity.this, CarryOutNo.class);
                     intent.putExtra("GateWay", gateWay.split(",")[1]);
                     intent.putExtra("api_getWay", getIntent().getStringExtra("api_getWay"));
@@ -80,11 +85,16 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject object = new JSONObject(response);
                     JSONArray array = object.getJSONArray("result_data");
-                    Log.e(TAG, "onResponse: "+array.toString());
+                    Log.e(TAG, "onResponse: " + array.toString());
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object1 = array.getJSONObject(i);
                         listName.add(object1.getString("name"));
                     }
+                    if(preferences.getString("CarryOutGateWay", null) != null){
+                        autoCompleteTextView.setText(gateWay);
+                    }
+                    adapterItems = new ArrayAdapter<String>(MainActivity.this, R.layout.list_item, listName);
+                    autoCompleteTextView.setAdapter(adapterItems);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -97,30 +107,16 @@ public class MainActivity extends AppCompatActivity {
         });
         queue.add(request);
 
-        autoCompleteTextView = findViewById(R.id.auto_complete_txt);
-        adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, listName);
-
-        autoCompleteTextView.setAdapter(adapterItems);
-
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 String item = adapterView.getItemAtPosition(i).toString();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("CarryOutGateWay", item);
+                editor.apply();
                 Log.e(TAG, "onFailure: " + item);
                 gateWay = item;
             }
         });
-    }
-
-    private void checkLogin() {
-        SharedPreferences preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
-        String FirstID = preferences.getString("FirstID", null);
-        String password = preferences.getString("password", null);
-
-        if(FirstID == null || password == null){
-            Intent intent = new Intent(MainActivity.this, Login.class);
-            startActivity(intent);
-        }
     }
 }

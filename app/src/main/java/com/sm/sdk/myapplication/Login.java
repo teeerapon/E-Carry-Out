@@ -14,10 +14,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.sm.sdk.myapplication.utils.LogUtil;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class Login extends AppCompatActivity {
 
@@ -29,32 +32,23 @@ public class Login extends AppCompatActivity {
 
     private final String url = "http://one-tkig.com/product_key/my_api/read/?UID=1e55394265b11e870e08f9e72b65728c&TOKEN=f38cd84380d55c7cb0320558c998a36f&serial_no=";
 
-    SharedPreferences preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
-    String FirstID = preferences.getString("FirstID", null);
-    String password = preferences.getString("password", null);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        inintView();
-        generatedIdView();
-    }
 
-    private void generatedIdView() {
-        Random rand = new Random();
-        char[] chars = new char[16];
-        for (int i = 0; i < chars.length; i++) {
-            chars[i] = (char) rand.nextInt(65536);
-        }
+        SharedPreferences preferences = getSharedPreferences("SHARED_PRES", MODE_PRIVATE);
+        String FirstID = preferences.getString("FirstID", null);
+        final String[] password = {preferences.getString("password", null)};
+
+        String randomID = String.valueOf(UUID.randomUUID().getMostSignificantBits());
         if (FirstID == null) {
+            FirstID = randomID.substring(1,17);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("FirstID", new String(chars));
+            editor.putString("FirstID", FirstID);
             editor.apply();
         }
-    }
 
-    private void inintView() {
         idMain = findViewById(R.id.idMain);
         idMain.setText(FirstID);
 
@@ -64,9 +58,9 @@ public class Login extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                password = passwordID.getText().toString();
+                password[0] = passwordID.getText().toString();
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("password", password);
+                editor.putString("password", password[0]);
                 editor.apply();
 
                 StringRequest request = new StringRequest(Request.Method.GET, url, new com.android.volley.Response.Listener<String>() {

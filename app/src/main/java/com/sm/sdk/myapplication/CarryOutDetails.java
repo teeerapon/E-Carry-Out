@@ -3,6 +3,7 @@ package com.sm.sdk.myapplication;
 import static com.android.volley.VolleyLog.TAG;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sm.sdk.myapplication.Data.DataAssetImages;
 import com.sm.sdk.myapplication.Data.DataAssets;
-import com.sm.sdk.myapplication.Metthod.Method;
 import com.sm.sdk.myapplication.Recycler.RecyclerAssetImage;
 import com.sm.sdk.myapplication.Recycler.RecyclerAssets;
 import com.sm.sdk.myapplication.utils.LogUtil;
@@ -66,7 +66,7 @@ public class CarryOutDetails extends AppCompatActivity {
 
     RadioGroup radioGroup;
 
-    RadioButton radioButton;
+    String statusReturn;
 
 
     @Override
@@ -75,7 +75,8 @@ public class CarryOutDetails extends AppCompatActivity {
         setContentView(R.layout.carry_out_details);
 
         queue = Volley.newRequestQueue(this);
-        url = Method.Base_url + "/demo/e-carryout/api/getdata/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9&id=" + getIntent().getStringExtra("carryout_no");;
+        SharedPreferences preferences = getSharedPreferences("SHARED_PRES", MODE_PRIVATE);
+        url = preferences.getString("base_url", "https://www.tkig.co.th") + "/demo/e-carryout/api/getdata/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9&id=" + getIntent().getStringExtra("carryout_no");;
 
         button = (Button) findViewById(R.id.carry_out_assets_photo);
 
@@ -106,6 +107,7 @@ public class CarryOutDetails extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject object = new JSONObject(response);
+                    LogUtil.e(Constant.TAG, String.valueOf(object.getJSONArray("result_asset_data")));
                     frstData.setText("ข้อมูลผู้ร้องขอ");
                     result_sutterdoor.setText("ทางเข้าออก: " + object.getString("result_sutterdoor"));
                     result_no.setText("หมายเลย Carry Out no: " + object.getString("result_no"));
@@ -118,6 +120,15 @@ public class CarryOutDetails extends AppCompatActivity {
                     result_carryout_car.setText("ทะเบียนรถ: " + object.getString("result_carryout_car"));
                     result_propose.setText("วัตถุประสงค์: " + object.getString("result_propose"));
                     result_return.setText("วันที่นำกลับ: " + object.getString("result_return"));
+                    LogUtil.e(Constant.TAG,object.getString("result_return"));
+                    String checkRadio = object.getString("result_return");
+                    if(checkRadio == null || checkRadio.equals("")){
+                        radioGroup.check(R.id.radio_CarryIn);
+                        statusReturn = "0";
+                    }else{
+                        radioGroup.check(R.id.radio_CarryOut);
+                        statusReturn = "1";
+                    }
 
                     JSONArray array = object.getJSONArray("result_asset_data");
                     for (int i = 0; i < array.length(); i++) {
@@ -159,26 +170,14 @@ public class CarryOutDetails extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(radioGroup.getCheckedRadioButtonId() == -1){
-                    Toast.makeText(CarryOutDetails.this,"กรูณาเลือกจุดประสงค์",Toast.LENGTH_SHORT).show();
-                }else{
-                    int radioID = radioGroup.getCheckedRadioButtonId();
-                    radioButton = findViewById(radioID);
-                    String gateWay = getIntent().getStringExtra("GateWay");
-                    String carryOutNo = getIntent().getStringExtra("carryout_no");
-                    RadioButton radioButton1 = findViewById(R.id.radio_CarryOut);
-                    String statusReturn = "0";
-                    if(radioButton.getText() == radioButton1.getText()){
-                        statusReturn = "1";
-                    }
-
-                    Intent intent = new Intent(CarryOutDetails.this, CaptureAssets.class);
-                    intent.putExtra("carryout_no", getIntent().getStringExtra("carryout_no"));
-                    intent.putExtra("GateWay", getIntent().getStringExtra("GateWay"));
-                    intent.putExtra("api_getWay", getIntent().getStringExtra("api_getWay"));
-                    intent.putExtra("statusReturn", statusReturn);
-                    startActivity(intent);
-                }
+                String gateWay = getIntent().getStringExtra("GateWay");
+                String carryOutNo = getIntent().getStringExtra("carryout_no");
+                Intent intent = new Intent(CarryOutDetails.this, CaptureAssets.class);
+                intent.putExtra("carryout_no", getIntent().getStringExtra("carryout_no"));
+                intent.putExtra("GateWay", getIntent().getStringExtra("GateWay"));
+                intent.putExtra("api_getWay", getIntent().getStringExtra("api_getWay"));
+                intent.putExtra("statusReturn", statusReturn);
+                startActivity(intent);
             }
         });
     }

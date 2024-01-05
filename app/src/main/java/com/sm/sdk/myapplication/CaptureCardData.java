@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.sm.sdk.myapplication.Data.DataImageCapture;
-import com.sm.sdk.myapplication.Metthod.Method;
 import com.sm.sdk.myapplication.Recycler.RecyclerCaptureImage;
 
 import java.io.ByteArrayOutputStream;
@@ -98,7 +97,8 @@ public class CaptureCardData extends AppCompatActivity {
                     intent.putExtra("statusReturn", statusReturn);
                     intent.putStringArrayListExtra("imgData",imgData);
                     intent.putExtra("api_getWay", getIntent().getStringExtra("api_getWay"));
-                    intent.putExtra("cardData",imageListBase64);
+                    intent.putStringArrayListExtra("cardData",imageListBase64);
+                    intent.putExtra("caseCardData","1");
                     startActivity(intent);
                 }
             }

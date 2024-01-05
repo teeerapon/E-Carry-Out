@@ -9,7 +9,6 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.sunmi.perm.LED" />
     <uses-permission android:name="com.sunmi.perm.MSR" />
     <uses-permission android:name="com.sunmi.perm.ICC" />
@@ -21,12 +20,10 @@
         android:name="android.permission.SET_TIME"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"
         tools:ignore="ScopedStorage" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
@@ -41,6 +38,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:ignore="LockedOrientationActivity">
+        <activity
+            android:name=".setBaseAPI"
+            android:exported="false" />
         <activity
             android:name=".CaptureCardData"
             android:exported="false" />

@@ -1,10 +1,15 @@
-plugins {
-    id 'com.android.application'
-}
+apply plugin: 'com.android.application'
 
 android {
     namespace 'com.sm.sdk.myapplication'
     compileSdk 34
+    ndkVersion "21.0.6113669"
+
+    lintOptions {
+        abortOnError false
+        disable 'GoogleAppIndexingWarning'
+        disable 'NonConstantResourceId'
+    }
 
     defaultConfig {
         applicationId "com.sm.sdk.myapplication"
@@ -16,17 +21,70 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            keyAlias 'sunmi'
+            keyPassword 'SunmiPay'
+            storeFile file('sunmi.jks')
+            storePassword 'sunmipay'
         }
     }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+        release {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+//    android.applicationVariants.all { variant ->
+//        def defOutputDir = variant.getPackageApplicationProvider().get().outputDirectory.getAsFile().get().getPath()
+//        def targetDir = "${project.buildDir}/outputs/apk"
+//        variant.outputs.all {
+//            outputFileName = "SunmiSDKTestDemo_${versionName}_libbase_${buildType.name}.apk"
+//            variant.assembleProvider.get().doLast {
+//                copy {
+//                    from defOutputDir
+//                    into targetDir
+//                    include "**/*.apk"
+//                }
+//                File dir = file("${targetDir}/${flavorName}")
+//                delete new File(dir, "${buildType.name}")
+//                if (dir.list().length == 0) {
+//                    delete dir
+//                }
+//            }
+//        }
+//    }
 }
+
+//repositories {
+//    flatDir {
+//        dirs 'libs'
+//    }
+//}
 
 dependencies {
 
@@ -42,4 +100,17 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
+
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    implementation(files("libs/PayLib-release-2.0.08.aar"))
+    implementation 'com.github.Advanced-Logic:AndroidThaiNationalIDCard:1.0.3'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'com.google.zxing:core:3.4.1'
 }
+
+//tasks.configureEach { task ->
+//    if (task.name.contains("ListingFileRedirect")) { // 过滤release
+//        task.enabled = false
+//    }
+//}

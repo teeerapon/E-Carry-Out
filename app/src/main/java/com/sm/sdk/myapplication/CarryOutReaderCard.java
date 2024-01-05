@@ -92,6 +92,7 @@ public class CarryOutReaderCard extends BaseAppCompatActivity {
                     intent.putStringArrayListExtra("imgData",imgData);
                     intent.putExtra("api_getWay", getIntent().getStringExtra("api_getWay"));
                     intent.putExtra("cardData","$"+track1+"$"+track2+"$"+track3);
+                    intent.putExtra("caseCardData","0");
                     startActivity(intent);
                 }
             }
