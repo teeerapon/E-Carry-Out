@@ -1,250 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     tools:context=".CarryOutDetails">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/FrstData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:text="ข้อมูลผู้ร้องขอ: "
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_sutterdoor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="12dp"
-                android:maxLines="4"
-                android:text="ทางเข้าออก: "
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/FrstData"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:singleLine="false"
-                android:text="หมายเลย Carry Out no: "
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_sutterdoor"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_requester"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:text="ผู้ร้องขอ: "
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_no"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_company"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:text="บริษัท: "
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_requester"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/secondData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="16dp"
-                android:maxLines="4"
-                android:text="ข้อมูลผู้นำออก"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_company"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_carryout_person"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="12dp"
-                android:maxLines="4"
-                android:text="ผู้นำออก: "
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/secondData"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_carryout_company"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:text="บริษัท: "
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_carryout_person"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_carryout_car"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:text="ทะเบียนรถ: "
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_carryout_company"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_propose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:text="วัตถุประสงค์: "
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_carryout_car"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/result_return"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:maxLines="4"
-                android:text="วันที่นำกลับ: "
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_propose"
-                app:layout_constraintVertical_bias="0.0"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/remarkCarry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="16dp"
-                android:maxLines="4"
-                android:text="จุดประสงค์"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result_return"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="329dp" />
-
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="374dp"
-                android:layout_height="47dp"
-                android:layout_marginStart="30dp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/remarkCarry"
-                tools:ignore="MissingConstraints">
-
-                <RadioButton
-                    android:id="@+id/radio_CarryIn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ไม่นำกลับ"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteY="300dp" />
-
-                <RadioButton
-                    android:id="@+id/radio_CarryOut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:text="นำกลับ"
-                    app:layout_constraintStart_toEndOf="@+id/radioButton"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteY="300dp" />
-
-            </RadioGroup>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewAssets"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="40dp"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                android:scrollbars="none"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewAssetsImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.465"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerViewAssets"
-                app:layout_constraintVertical_bias="0.236" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/carry_out_assets_photo"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="20dp"
-                android:background="@android:color/holo_blue_dark"
-                android:foreground="?attr/selectableItemBackground"
-                android:text="Next Step"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerViewAssetsImage"
-                app:layout_constraintVertical_bias="0.047"
-                tools:ignore="MissingConstraints" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/FrstData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:maxLines="4"
+                    android:text="ข้อมูลผู้ร้องขอ: "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/result_sutterdoor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="12dp"
+                    android:maxLines="4"
+                    android:text="ทางเข้าออก: "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/FrstData"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/result_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:maxLines="4"
+                    android:singleLine="false"
+                    android:text="หมายเลย Carry Out no: "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result_sutterdoor"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/result_requester"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:maxLines="4"
+                    android:text="ผู้ร้องขอ: "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result_no"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/result_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:maxLines="4"
+                    android:text="บริษัท: "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result_requester"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/secondData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:maxLines="4"
+                    android:text="ข้อมูลผู้นำออก"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result_company"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/result_carryout_person"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="12dp"
+                    android:maxLines="4"
+                    android:text="ผู้นำออก: "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/secondData"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/result_carryout_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:maxLines="4"
+                    android:text="บริษัท: "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result_carryout_person"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/result_carryout_car"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:maxLines="4"
+                    android:text="ทะเบียนรถ: "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result_carryout_company"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/result_propose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:maxLines="4"
+                    android:text="วัตถุประสงค์: "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result_carryout_car"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/result_return"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:maxLines="4"
+                    android:text="วันที่นำกลับ: "
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result_propose"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/remarkCarry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:maxLines="4"
+                    android:text="จุดประสงค์"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result_return"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteY="329dp" />
+
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="374dp"
+                    android:layout_height="47dp"
+                    android:layout_marginStart="30dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/remarkCarry"
+                    tools:ignore="MissingConstraints">
+
+                    <RadioButton
+                        android:id="@+id/radio_CarryIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ไม่นำกลับ"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteY="300dp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_CarryOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="นำกลับ"
+                        app:layout_constraintStart_toEndOf="@+id/radioButton"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteY="300dp" />
+
+                </RadioGroup>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewAssets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewAssetsImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.465"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewAssets"
+                    app:layout_constraintVertical_bias="0.236" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/carry_out_assets_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@android:color/holo_blue_dark"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:text="Next Step"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewAssetsImage"
+                    app:layout_constraintVertical_bias="0.047"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

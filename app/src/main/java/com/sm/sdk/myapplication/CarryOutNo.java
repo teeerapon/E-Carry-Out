@@ -10,8 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CarryOutNo extends AppCompatActivity {
     final ArrayList<String> listCarryout_no = new ArrayList<String>();
@@ -44,23 +47,8 @@ public class CarryOutNo extends AppCompatActivity {
         setContentView(R.layout.carry_out_no);
 
         autoCompleteTextView = findViewById(R.id.auto_complete_carry_out_no);
-
-        button = (Button) findViewById(R.id.next_step_carry_out1);
-        button.setEnabled(false);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CarryOutNo.this, CarryOutDetails.class);
-                intent.putExtra("carryout_no", carryNo.split(",")[2]);
-                intent.putExtra("GateWay", getIntent().getStringExtra("GateWay"));
-                startActivity(intent);
-            }
-        });
-
-
-        String gateWay = getIntent().getStringExtra("GateWay");
         queue = Volley.newRequestQueue(this);
-        url = Method.Base_url + "/demo/e-carryout/api/list/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9&gate=" + gateWay;
+        url = Method.Base_url + "/demo/e-carryout/api/list/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9&gate=" + getIntent().getStringExtra("GateWay");;
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -90,11 +78,26 @@ public class CarryOutNo extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                button.setEnabled(true);
                 String item = adapterView.getItemAtPosition(i).toString();
                 carryNo = item;
                 Log.e(TAG, "onFailure: " + item);
 
+            }
+        });
+
+        button = (Button) findViewById(R.id.next_step_carry_out1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(carryNo == null){
+                    Toast.makeText(CarryOutNo.this,"กรุณาเลือก Carry Out No",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(CarryOutNo.this, CarryOutDetails.class);
+                    intent.putExtra("carryout_no", carryNo.split(",")[2]);
+                    intent.putExtra("GateWay", getIntent().getStringExtra("GateWay"));
+                    intent.putExtra("api_getWay", getIntent().getStringExtra("api_getWay"));
+                    startActivity(intent);
+                }
             }
         });
 

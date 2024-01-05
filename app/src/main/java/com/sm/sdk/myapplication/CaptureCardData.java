@@ -1,5 +1,9 @@
 package com.sm.sdk.myapplication;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,18 +13,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.sm.sdk.myapplication.Data.DataImageCapture;
+import com.sm.sdk.myapplication.Metthod.Method;
 import com.sm.sdk.myapplication.Recycler.RecyclerCaptureImage;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class CaptureAssets extends AppCompatActivity {
+public class CaptureCardData extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     final ArrayList<DataImageCapture> imageList = new ArrayList<>();
     final ArrayList<String> imageListBase64 = new ArrayList<>();
@@ -36,7 +39,7 @@ public class CaptureAssets extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_image);
+        setContentView(R.layout.activity_capture_card_data);
 
         recyclerViewImage = findViewById(R.id.listImageCapture);
         recyclerViewImage.setHasFixedSize(true);
@@ -64,14 +67,14 @@ public class CaptureAssets extends AppCompatActivity {
             public void onClick(View v) {
                 if (imageList.size() <= 1 ) {
                     imageList.clear();
-                    RecyclerCaptureImage imageAdapter = new RecyclerCaptureImage(CaptureAssets.this, imageList);
+                    RecyclerCaptureImage imageAdapter = new RecyclerCaptureImage(CaptureCardData.this, imageList);
                     recyclerViewImage.setAdapter(imageAdapter);
                     button2.setVisibility(View.GONE);
                     button3.setVisibility(View.GONE);
                 }else{
                     imageList.remove(imageList.size() - 1);
                     imageListBase64.remove(imageList.size() - 1);
-                    RecyclerCaptureImage imageAdapter = new RecyclerCaptureImage(CaptureAssets.this, imageList);
+                    RecyclerCaptureImage imageAdapter = new RecyclerCaptureImage(CaptureCardData.this, imageList);
                     recyclerViewImage.setAdapter(imageAdapter);
                 }
             }
@@ -84,16 +87,18 @@ public class CaptureAssets extends AppCompatActivity {
                 String carryout_no = getIntent().getStringExtra("carryout_no");
                 String geteWay = getIntent().getStringExtra("GateWay");
                 String statusReturn = getIntent().getStringExtra("statusReturn");
+                ArrayList<String> imgData = getIntent().getStringArrayListExtra("imgData");
 
                 if(imageList.size() == 0){
-                    Toast.makeText(CaptureAssets.this,"กรุณาถ่ายรูปอย่างน้อย 1 รูป",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CaptureCardData.this,"กรุณาถ่ายรูปอย่างน้อย 1 รูป",Toast.LENGTH_SHORT).show();
                 }else{
-                    Intent intent = new Intent(CaptureAssets.this, CarryOutReaderCard.class);
+                    Intent intent = new Intent(CaptureCardData.this, StepGuard.class);
                     intent.putExtra("GateWay", geteWay);
                     intent.putExtra("carryout_no", carryout_no);
                     intent.putExtra("statusReturn", statusReturn);
+                    intent.putStringArrayListExtra("imgData",imgData);
                     intent.putExtra("api_getWay", getIntent().getStringExtra("api_getWay"));
-                    intent.putStringArrayListExtra("imgData",imageListBase64);
+                    intent.putExtra("cardData",imageListBase64);
                     startActivity(intent);
                 }
             }
@@ -113,7 +118,7 @@ public class CaptureAssets extends AppCompatActivity {
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             imageListBase64.add(Base64.encodeToString(byteArray, Base64.DEFAULT));
         }
-        RecyclerCaptureImage imageAdapter = new RecyclerCaptureImage(CaptureAssets.this, imageList);
+        RecyclerCaptureImage imageAdapter = new RecyclerCaptureImage(CaptureCardData.this, imageList);
         recyclerViewImage.setAdapter(imageAdapter);
         button2.setVisibility(View.VISIBLE);
         button3.setVisibility(View.VISIBLE);

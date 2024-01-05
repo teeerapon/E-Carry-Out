@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +28,7 @@ import com.sm.sdk.myapplication.Data.DataAssets;
 import com.sm.sdk.myapplication.Metthod.Method;
 import com.sm.sdk.myapplication.Recycler.RecyclerAssetImage;
 import com.sm.sdk.myapplication.Recycler.RecyclerAssets;
+import com.sm.sdk.myapplication.utils.LogUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +36,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CarryOutDetails extends AppCompatActivity {
 
@@ -70,11 +74,8 @@ public class CarryOutDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carry_out_details);
 
-        String gateWay = getIntent().getStringExtra("GateWay");
-        String carryOutNo = getIntent().getStringExtra("carryout_no");
-
         queue = Volley.newRequestQueue(this);
-        url = Method.Base_url + "/demo/e-carryout/api/getdata/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9&id=" + carryOutNo;
+        url = Method.Base_url + "/demo/e-carryout/api/getdata/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9&id=" + getIntent().getStringExtra("carryout_no");;
 
         button = (Button) findViewById(R.id.carry_out_assets_photo);
 
@@ -158,24 +159,26 @@ public class CarryOutDetails extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int radioID = radioGroup.getCheckedRadioButtonId();
-                radioButton = findViewById(radioID);
+                if(radioGroup.getCheckedRadioButtonId() == -1){
+                    Toast.makeText(CarryOutDetails.this,"กรูณาเลือกจุดประสงค์",Toast.LENGTH_SHORT).show();
+                }else{
+                    int radioID = radioGroup.getCheckedRadioButtonId();
+                    radioButton = findViewById(radioID);
+                    String gateWay = getIntent().getStringExtra("GateWay");
+                    String carryOutNo = getIntent().getStringExtra("carryout_no");
+                    RadioButton radioButton1 = findViewById(R.id.radio_CarryOut);
+                    String statusReturn = "0";
+                    if(radioButton.getText() == radioButton1.getText()){
+                        statusReturn = "1";
+                    }
 
-                String gateWay = getIntent().getStringExtra("GateWay");
-                String carryOutNo = getIntent().getStringExtra("carryout_no");
-                RadioButton radioButton1 = findViewById(R.id.radio_CarryOut);
-                String statusReturn = "0";
-                if(radioButton.getText() == radioButton1.getText()){
-                    statusReturn = "1";
+                    Intent intent = new Intent(CarryOutDetails.this, CaptureAssets.class);
+                    intent.putExtra("carryout_no", getIntent().getStringExtra("carryout_no"));
+                    intent.putExtra("GateWay", getIntent().getStringExtra("GateWay"));
+                    intent.putExtra("api_getWay", getIntent().getStringExtra("api_getWay"));
+                    intent.putExtra("statusReturn", statusReturn);
+                    startActivity(intent);
                 }
-
-                Log.e(TAG,statusReturn);
-
-                Intent intent = new Intent(CarryOutDetails.this, CaptureAssets.class);
-                intent.putExtra("carryout_no", gateWay);
-                intent.putExtra("GateWay", carryOutNo);
-                intent.putExtra("statusReturn", statusReturn);
-                startActivity(intent);
             }
         });
     }

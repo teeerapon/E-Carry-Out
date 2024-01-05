@@ -1,15 +1,19 @@
 package com.sm.sdk.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,15 +21,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sm.sdk.myapplication.Metthod.Method;
+import com.sm.sdk.myapplication.utils.PreferencesUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    String[] item = {"MARK", "PANG", "MIKE"};
     final ArrayList<String> listName = new ArrayList<String>();
     private static final String TAG = "ActivityMain";
 
@@ -44,23 +49,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkLogin();
 
         queue = Volley.newRequestQueue(this);
         url = Method.Base_url + "/demo/e-carryout/api/gate/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9";
 
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
-        adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, item);
+        adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, listName);
 
         buttonGetway = findViewById(R.id.buttonGetway);
-        buttonGetway.setEnabled(false);
 
         buttonGetway.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CarryOutNo.class);
-                intent.putExtra("GateWay", gateWay.split(",")[1]);
-                startActivity(intent);
+                if(gateWay == null){
+                    Toast.makeText(MainActivity.this,"กรุณาเลือกประตู",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(MainActivity.this, CarryOutNo.class);
+                    intent.putExtra("GateWay", gateWay.split(",")[1]);
+                    intent.putExtra("api_getWay", getIntent().getStringExtra("api_getWay"));
+                    startActivity(intent);
+                }
             }
         });
 
@@ -95,11 +105,22 @@ public class MainActivity extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 String item = adapterView.getItemAtPosition(i).toString();
                 Log.e(TAG, "onFailure: " + item);
-                buttonGetway.setEnabled(true);
                 gateWay = item;
             }
         });
+    }
+
+    private void checkLogin() {
+        SharedPreferences preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE);
+        String FirstID = preferences.getString("FirstID", null);
+        String password = preferences.getString("password", null);
+
+        if(FirstID == null || password == null){
+            Intent intent = new Intent(MainActivity.this, Login.class);
+            startActivity(intent);
+        }
     }
 }

@@ -28,7 +28,7 @@
                     android:layout_margin="10dp"
                     android:background="@android:color/holo_blue_dark"
                     android:foreground="?attr/selectableItemBackground"
-                    android:text="ถ่ายภาพ"
+                    android:text="ถ่ายภาพบัตรของคุณ"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
