@@ -39,8 +39,7 @@ public class StepGuard extends AppCompatActivity {
 
     private MaterialButton done;
     RequestQueue queue;
-    SharedPreferences preferences = getSharedPreferences("SHARED_PRES", MODE_PRIVATE);
-    private String url= preferences.getString("base_url", "https://www.tkig.co.th") +"/demo/e-carryout/api/receive/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9";
+    private String url;
 
     private ActivityStepGuardBinding binding;
 
@@ -177,6 +176,8 @@ public class StepGuard extends AppCompatActivity {
     }
 
     private void initViews() {
+        SharedPreferences preferences = getSharedPreferences("SHARED_PRES", MODE_PRIVATE);
+        url= preferences.getString("base_url", "https://www.tkig.co.th") +"/demo/e-carryout/api/receive/?UID=4cec00d0875d1294ebfbaf44d62b6041&token=dcc729c721b2eb21cb771e5747fc35d9";
         binding.cameraScan.setOnClickListener(view -> {
             checkPermissionAndShowActivity(this);
         });

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sm.sdk.myapplication.Data.DataImageCapture;
 import com.sm.sdk.myapplication.Recycler.RecyclerCaptureImage;
+import com.sm.sdk.myapplication.utils.LogUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -50,7 +51,6 @@ public class CaptureAssets extends AppCompatActivity {
 
         Button photoButton = (Button) this.findViewById(R.id.button1);
         photoButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);

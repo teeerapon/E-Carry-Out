@@ -22,7 +22,7 @@
                 tools:context=".OutCarry_2">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button1"
+                    android:id="@+id/cardDataCapture1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -40,18 +40,18 @@
                     tools:ignore="MissingConstraints" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/listImageCapture"
+                    android:id="@+id/listImageCaptureCardData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button1"
+                    app:layout_constraintTop_toBottomOf="@+id/cardDataCapture1"
                     app:layout_constraintVertical_bias="0.069" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button3"
+                    android:id="@+id/cardDataCapture3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -67,7 +67,7 @@
                     tools:ignore="MissingConstraints" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button2"
+                    android:id="@+id/cardDataCapture2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

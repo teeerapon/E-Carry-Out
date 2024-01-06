@@ -40,17 +40,17 @@ public class CaptureCardData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture_card_data);
 
-        recyclerViewImage = findViewById(R.id.listImageCapture);
+        recyclerViewImage = findViewById(R.id.listImageCaptureCardData);
         recyclerViewImage.setHasFixedSize(true);
         recyclerViewImage.setLayoutManager(new LinearLayoutManager(this));
 
-        button2 = findViewById(R.id.button2);
+        button2 = findViewById(R.id.cardDataCapture2);
         button2.setVisibility(View.GONE);
 
-        button3 = findViewById(R.id.button3);
+        button3 = findViewById(R.id.cardDataCapture3);
         button3.setVisibility(View.GONE);
 
-        Button photoButton = (Button) this.findViewById(R.id.button1);
+        Button photoButton = (Button) this.findViewById(R.id.cardDataCapture1);
         photoButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
