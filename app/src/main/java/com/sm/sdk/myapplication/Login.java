@@ -2,6 +2,7 @@ package com.sm.sdk.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class Login extends AppCompatActivity {
 
     RequestQueue queue;
 
-    private final String url = "http://one-tkig.com/product_key/my_api/read/?UID=1e55394265b11e870e08f9e72b65728c&TOKEN=f38cd84380d55c7cb0320558c998a36f&serial_no=";
+    private String url = "http://one-tkig.com/product_key/my_api/read/?UID=1e55394265b11e870e08f9e72b65728c&TOKEN=f38cd84380d55c7cb0320558c998a36f&serial_no=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,8 @@ public class Login extends AppCompatActivity {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("FirstID", FirstID);
             editor.apply();
+
+            url = url+FirstID;
         }
 
         idMain = findViewById(R.id.idMain);
@@ -62,13 +65,14 @@ public class Login extends AppCompatActivity {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("password", password[0]);
                 editor.apply();
-
                 StringRequest request = new StringRequest(Request.Method.GET, url, new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject object = new JSONObject(response);
                             Toast.makeText(Login.this, object.toString(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Login.this, CarryOutChoseWay.class);
+                            startActivity(intent);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
